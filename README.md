@@ -18,19 +18,29 @@ Create a file in your home directory containing the api key with `echo API_KEY=x
 ## Usage
 
 ```
-$ hl ethers|miners|miner_types|sensors|temp [param=value]
+usage: hl dlsysimage|ethers|miners|miner_types|sensors|sysimage|sysimages|temp [param=value]
 ```
 
 ## Examples
 
 ### Miners
 
-#### List all miners:
+#### List all miners
 ```
 $ hl miners
+{
+  "id": "1466f77b-93e8-11e8-bd87-02420a000145",
+  "created_at": 1532948561,
+  "updated_at": 1542095106,
+  "name": "ANTD3002",
+  "rack_position": "37R",
+  "ip": "10.3.1.2",
+  "mac": "90:70:65:B7:C4:05",
+  "active": true,
+...
 ```
 
-#### List miners with filter:
+#### List miners with filter
 ```
 $ hl miners mac=02:42:0d:f2:39:6a
 
@@ -39,9 +49,26 @@ $ hl miners name=XXX
 $ hl miners miner_type=1b45a531-93e7-11e8-bd87-02420a000145
 ```
 
-#### Export miners to csv file:
+#### Export miners to csv file
 ```
 $ hl miners | jq -r '[.name, .ip, .mac] | @csv' >export.csv
+```
+
+### Miner Types
+
+#### List all miner types
+```
+$ hl miner_types
+{
+  "id": "2d291c57-bfef-4b5b-a24f-9d5d3d335caa",
+  "name": "BK-G28",
+  "manufacturer": "Baikal",
+  "algorithms": {
+    "x11": {
+      "kw": "1.3",
+      "hashrate": "28 GH/s"
+    },
+    ...
 ```
 
 ### Hashland OS System Images
@@ -56,13 +83,7 @@ $ hl sysimages
   "url": "http://cdn.hashland.cc/hlos/18.11-beta4/targets/sunxi/cortexa7/hashland-18.11-beta4-sunxi-cortexa7-baikal-giant-b-squashfs-sdcard.img",
   "version": "18.11-beta4"
 }
-{
-  "id": "896d14b5-0a9d-4a95-a256-737b2bcd1242",
-  "created_at": 1542202321,
-  "name": "baikal,giant-b",
-  "url": "http://cdn.hashland.cc/hlos/18.11-beta3/targets/sunxi/cortexa7/hashland-18.11-beta3-sunxi-cortexa7-baikal-giant-b-squashfs-sdcard.img",
-  "version": "18.11-beta3"
-}
+...
 ```
 
 #### List best version for specific board / version
@@ -92,17 +113,44 @@ $ hl sysimage baikal,giant-b @stable
   "version": "18.11"
 }
 ```
-
+### Download best version for specific board / version
 ```
-# Generate /etc/ethers file:
-$ hl ethers
+$ hl dlsysimage baikal,giant-b @beta
+Downloading hashland-18.11-beta4-sunxi-cortexa7-baikal-giant-b-squashfs-sdcard.img
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 14.9M  100 14.9M    0     0  5504k      0  0:00:02  0:00:02 --:--:-- 5629k
+```
 
-# List all miner types json:
-$ hl miner_types
+### Sensors
 
+#### List all sensors and their values
+```
 # List all sensors json:
 $ hl sensors
-
-# Get all temperature sensors and their current values:
-$ hl temp
+{
+  "id": "7152eb3f-a6e2-11e8-8baf-02420a0001a5",
+  "created_at": 1535035212,
+  "updated_at": 1542317461,
+  "name": "Rack",
+  "type": "DH18S20",
+...
 ```
+
+#### Get values from all temperature sensors
+```
+$ hl temp
+Außentemperatur: 6.1
+Büro: 18.9
+Gang Regale: 33.6
+...
+```
+### Generate /etc/ethers file
+
+ethers - Ethernet address to IP number database. Can be used by DHCP server to assign static ip leases.
+
+$ hl ethers
+02:42:EA:81:E2:9A 10.2.1.84
+02:42:B7:8A:EE:17 10.2.1.85
+02:42:8B:A2:2A:5A 10.2.1.86
+...
