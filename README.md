@@ -28,6 +28,7 @@ usage: hl dlsysimage|ethers|miners|miner_types|sensors|sysimage|sysimages|temp [
 #### List all miners
 ```
 $ hl miners
+
 {
   "id": "1466f77b-93e8-11e8-bd87-02420a000145",
   "created_at": 1532948561,
@@ -59,6 +60,7 @@ $ hl miners | jq -r '[.name, .ip, .mac] | @csv' >export.csv
 #### List all miner types
 ```
 $ hl miner_types
+
 {
   "id": "2d291c57-bfef-4b5b-a24f-9d5d3d335caa",
   "name": "BK-G28",
@@ -76,6 +78,7 @@ $ hl miner_types
 #### List all available Hashland OS System Images
 ```
 $ hl sysimages
+
 {
   "id": "408b154f-e8f1-11e8-b7fa-02420a000150",
   "created_at": 1542298350,
@@ -92,6 +95,7 @@ Get latest version with `beta` stability for `baikal,giant-b`:
 
 ```
 $ hl sysimage baikal,giant-b @beta  
+
 {
   "id": "408b154f-e8f1-11e8-b7fa-02420a000150",
   "created_at": 1542298350,
@@ -105,6 +109,7 @@ Get latest version with `stable` stability for `baikal,giant-b`:
 
 ```
 $ hl sysimage baikal,giant-b @stable  
+
 {
   "id": "408b154f-e8f1-11e8-b7fa-02420a000150",
   "created_at": 1542298350,
@@ -116,6 +121,7 @@ $ hl sysimage baikal,giant-b @stable
 ### Download best version for specific board / version
 ```
 $ hl dlsysimage baikal,giant-b @beta
+
 Downloading hashland-18.11-beta4-sunxi-cortexa7-baikal-giant-b-squashfs-sdcard.img
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -128,6 +134,7 @@ Downloading hashland-18.11-beta4-sunxi-cortexa7-baikal-giant-b-squashfs-sdcard.i
 ```
 # List all sensors json:
 $ hl sensors
+
 {
   "id": "7152eb3f-a6e2-11e8-8baf-02420a0001a5",
   "created_at": 1535035212,
@@ -140,6 +147,7 @@ $ hl sensors
 #### Get values from all temperature sensors
 ```
 $ hl temp
+
 Außentemperatur: 6.1
 Büro: 18.9
 Gang Regale: 33.6
@@ -149,8 +157,11 @@ Gang Regale: 33.6
 
 ethers - Ethernet address to IP number database. Can be used by DHCP server to assign static ip leases.
 
+```
 $ hl ethers
+
 02:42:EA:81:E2:9A 10.2.1.84
 02:42:B7:8A:EE:17 10.2.1.85
 02:42:8B:A2:2A:5A 10.2.1.86
 ...
+```
