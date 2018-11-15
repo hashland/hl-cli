@@ -27,21 +27,24 @@ $ hl ethers|miners|miner_types|sensors|temp [param=value]
 Generate /etc/ethers file:
 $ hl ethers
 
-List miners by name:
+List miners json by name:
 $ hl miners name=XXX
 
-List miners by mac:
+List miners json by mac:
 $ hl miners mac=02:42:0d:f2:39:6a
 
-List miners by miner_type:
+List miners json by miner_type:
 $ hl miners miner_type=1b45a531-93e7-11e8-bd87-02420a000145
 
-List all miner types:
+Export miners to csv file:
+$ hl miners | jq -r '[.name, .ip, .mac] | @csv' >export.csv
+
+List all miner types json:
 $ hl miner_types
 
-List all sensors:
+List all sensors json:
 $ hl sensors
 
-Get all temperature sensors:
+Get all temperature sensors and their current values:
 $ hl temp
 ```
