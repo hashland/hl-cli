@@ -29,6 +29,11 @@ get()
 	curl -s -H "Authorization: Bearer $API_KEY" ${API_URL}/${ROUTE}
 }
 
+sshminer()
+{
+	echo $(miners $1 | jq -r .ip[0])
+}
+
 miners()
 {
 	get "miners" $1 | jq .data.miners[] 
@@ -64,7 +69,11 @@ sysimage()
 dlsysimage()
 {
 	URL=$(sysimage $1 $2 | jq -r .url)
-	[ ! -z "$URL" ] && [ "$URL" != "null" ] && wget $URL 
+	if [ ! -z "$URL" ] && [ "$URL" != "null" ]; then
+		BASENAME=$(basename "$URL")
+		echo Downloading $BASENAME
+		curl -o "$BASENAME" "$URL"
+	fi
 }
 
 if [ -z $1 ]; then
