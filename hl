@@ -13,18 +13,26 @@ gen_ethers()
 get()
 {
 	ROUTE=$1
-	curl -s -H "Authorization: Bearer $API_KEY" ${API_URL}/$ROUTE
+	PARAMS=$2
+	curl -s -H "Authorization: Bearer $API_KEY" ${API_URL}/$ROUTE?$PARAMS
 }
 
 get_miners()
 {
-	get "miners"
+	get "miners" $1 | jq .data.miners[] 
 }
 
 if [ -z $1 ]; then
-	echo usage: hl gen_ethers\|get_miners
+	echo usage:
+        echo $ hl gen_ethers\|get_miners [param=value]
+	echo
+	echo examples:
+	echo
+	echo Get miners by name:
+        echo $ hl get_miners name=XXX
+	echo
 	exit 1
 fi
 	
-$1
+$1 $2
 
