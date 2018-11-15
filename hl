@@ -49,13 +49,31 @@ miner_types()
 	get "miner-types" $1 | jq .data.miner_types[]
 }
 
+sysimages()
+{
+	get "hlos-sysimages" $1 | jq .data.hlos_sysimages[]
+}
+
+sysimage()
+{
+	NAME=$1
+	VERSION=$2
+	get "hlos-sysimages/sysupgrade" "name=$NAME&version=$VERSION" | jq .data.hlos_sysimage
+}
+
+dlsysimage()
+{
+	URL=$(sysimage $1 $2 | jq -r .url)
+	[ ! -z "$URL" ] && [ "$URL" != "null" ] && wget $URL 
+}
+
 if [ -z $1 ]; then
-	echo usage: hl ethers\|miners\|miner_types\|sensors\|temp [param=value]
+	echo usage: hl dlsysimage\|ethers\|miners\|miner_types\|sensors\|sysimage\|sysimages\|temp [param=value]
 	echo 
 	echo see https://github.com/hashland/hl-cli for examples
 	echo
 	exit 1
 fi
 	
-$1 $2
+$@
 
