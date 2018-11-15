@@ -43,28 +43,10 @@ miner_types()
 }
 
 if [ -z $1 ]; then
-	echo usage:
-        echo $ hl ethers\|miners\|miner_types\|sensors\|temp [param=value]
+	echo usage: hl ethers\|miners\|miner_types\|sensors\|temp [param=value]
+	echo 
+	echo see https://github.com/hashland/hl-cli for examples
 	echo
-	echo examples:
-	echo
-	echo List miners by name:
-        echo $ hl miners name=XXX
-	echo
-	echo List miners by mac:
-        echo $ hl miners mac=02:42:0d:f2:39:6a
-	echo
-	echo List miners by miner_type:
-        echo $ hl miners miner_type=1b45a531-93e7-11e8-bd87-02420a000145
-	echo
-	echo List all miner types:
-	echo $ hl miner_types
-	echo
-	echo List all sensors:
-	echo $ hl sensors
-	echo
-	echo Get all temperature sensors:
-	echo $ hl temp
 	exit 1
 fi
 	
