@@ -9,6 +9,12 @@
            Hashland Command Line Interface
 ```
 
+## Dependencies
+* `curl`
+* `jq` Install it with `apt install jq` on Debian/Ubuntu and `brew install jq` on OSX
+
+## API Key
+Create a file in your home directory containing the api key with `echo API_KEY=xxxyourxxxapixxxkeyxxx >$HOME/.hashland && chmod 600 $HOME/.hashland`
 ## Usage
 
 ```
@@ -18,6 +24,9 @@ $ hl ethers|miners|miner_types|sensors|temp [param=value]
 ## Examples
 
 ```
+Generate /etc/ethers file:
+$ hl ethers
+
 List miners by name:
 $ hl miners name=XXX
 
