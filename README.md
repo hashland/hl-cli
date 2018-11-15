@@ -10,11 +10,14 @@
 ```
 
 ## Usage
+
 ```
 $ hl ethers|miners|miner_types|sensors|temp [param=value]
+```
 
-examples:
+## Examples
 
+```
 List miners by name:
 $ hl miners name=XXX
 
