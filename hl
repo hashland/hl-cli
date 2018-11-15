@@ -1,0 +1,30 @@
+#!/bin/sh
+
+API_URL=https://api.hashland.cc
+
+. $HOME/.hashland
+
+# generate a /etc/ethers compatible file which can be used for dhcp servers to do static assignments based on mac address
+gen_ethers()
+{
+	get_miners | jq -r '.data.miners[] | select(.mac != "") | select(.mac != null) | .mac + " " + .ip'
+}
+
+get()
+{
+	ROUTE=$1
+	curl -s -H "Authorization: Bearer $API_KEY" ${API_URL}/$ROUTE
+}
+
+get_miners()
+{
+	get "miners"
+}
+
+if [ -z $1 ]; then
+	echo usage $0 gen_ethers|get_miners
+	exit 1
+fi
+	
+$1
+
