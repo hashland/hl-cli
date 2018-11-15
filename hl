@@ -44,7 +44,7 @@ miner_types()
 
 if [ -z $1 ]; then
 	echo usage:
-        echo $ hl ethers\|miners\|miner_types\|sensors [param=value]
+        echo $ hl ethers\|miners\|miner_types\|sensors\|temp [param=value]
 	echo
 	echo examples:
 	echo
