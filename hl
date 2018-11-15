@@ -2,6 +2,13 @@
 
 API_URL=https://api.hashland.cc
 
+if [ ! -f $HOME/.hashland ]; then
+	echo Create a file in your home directory containing the api key with 
+	echo echo API_KEY=xxxyourxxxapixxxkeyxxx \>\$HOME/.hashland \&\& chmod 600 \$HOME/.hashland
+
+	exit 1
+fi
+
 . $HOME/.hashland
 
 # generate a /etc/ethers compatible file which can be used for dhcp servers to do static assignments based on mac address
