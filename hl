@@ -22,7 +22,7 @@ get_miners()
 }
 
 if [ -z $1 ]; then
-	echo usage $0 gen_ethers|get_miners
+	echo usage: hl gen_ethers\|get_miners
 	exit 1
 fi
 	
