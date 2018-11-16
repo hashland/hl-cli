@@ -56,12 +56,13 @@ ssh_miners()
 
 ping_miners()
 {
-	for line in $(miners $1 | jq -r '.ip + "|" + .name + "|" + .rack.name'); do
+	for line in $(miners $1 | jq -r '.ip + "|" + .rack.name + "|" + .rack_position + "|" + .name'); do
 		ip=$(echo $line | cut -f 1 -d "|")
-		name=$(echo $line | cut -f 2 -d "|")
-		rack_name=$(echo $line | cut -f 3 -d "|")
+		rack_name=$(echo $line | cut -f 2 -d "|")
+		rack_position=$(echo $line | cut -f 3 -d "|")
+		name=$(echo $line | cut -f 4 -d "|")
 
-		echo -n "$ip $name $rack_name "
+		echo -n "$ip $rack_name:$rack_position $name ... "
 
 		ping -c1 ${ip} >/dev/null
 		
