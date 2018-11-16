@@ -90,6 +90,27 @@ $ hl set_miner 1770c711-93e8-11e8-bd87-02420a000145 mac=02:42:07:93:53:B7
 $ hl miners | jq -r '[.name, .ip, .mac] | @csv' >export.csv
 ```
 
+#### Get MAC for miners
+```
+$ hl miners name=BAIGB163 | jq -r .mac
+02:42:A7:86:58:3F
+...
+```
+
+#### Get IP for miners
+```
+$ hl miners name=BAIGB163 | jq -r .ip
+10.2.1.113
+...
+```
+
+#### Get combined field output for miners
+```
+$ hl miners | jq -r '.id + " " + .ip + " " + .mac'
+18c3fdc4-93e8-11e8-bd87-02420a000145 10.2.1.113 02:42:A7:86:58:3F
+...
+```
+
 ### Miner Types
 
 #### List all miner types
