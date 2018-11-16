@@ -11,13 +11,19 @@ fi
 
 . $HOME/.hashland
 
-# generate a /etc/ethers compatible file which can be used for dhcp servers to do static assignments based on mac address
-ethers()
+_patch()
 {
-	get "miners" | jq -r '.data.miners[] | select(.mac != "") | select(.mac != null) | .mac + " " + .ip'
+	ROUTE=$1
+	PARAMS=$2
+	curl -s -H "Authorization: Bearer $API_KEY" -X PATCH -d "$PARAMS" ${API_URL}/${ROUTE}
 }
 
-get()
+_put()
+{
+	curl -s -H "Authorization: Bearer $API_KEY" -X PUT -d "$PARAMS" ${API_URL}/${ROUTE}
+}
+
+_get()
 {
 	ROUTE=$1
 	PARAMS=$2
@@ -29,6 +35,11 @@ get()
 	curl -s -H "Authorization: Bearer $API_KEY" ${API_URL}/${ROUTE}
 }
 
+ethers()
+{
+	_get "miners" | jq -r '.data.miners[] | select(.mac != "") | select(.mac != null) | .mac + " " + .ip'
+}
+
 sshminer()
 {
 	echo $(miners $1 | jq -r .ip[0])
@@ -36,12 +47,12 @@ sshminer()
 
 miners()
 {
-	get "miners" $1 | jq .data.miners[] 
+	_get "miners" $1 | jq .data.miners[] 
 }
 
 sensors()
 {
-	get "sensors" $1 | jq .data.sensors[] 
+	_get "sensors" $1 | jq .data.sensors[] 
 }
 
 temp() 
@@ -51,29 +62,29 @@ temp()
 
 miner_types()
 {
-	get "miner-types" $1 | jq .data.miner_types[]
+	_get "miner-types" $1 | jq .data.miner_types[]
 }
 
 pdus()
 {
-	get "pdus" $1 | jq .data.pdus[]
+	_get "pdus" $1 | jq .data.pdus[]
 }
 
 pdu_types()
 {
-	get "pdu-types" $1 | jq .data.pdu_types[]
+	_get "pdu-types" $1 | jq .data.pdu_types[]
 }
 
 sysimages()
 {
-	get "hlos-sysimages" $1 | jq .data.hlos_sysimages[]
+	_get "hlos-sysimages" $1 | jq .data.hlos_sysimages[]
 }
 
 sysimage()
 {
 	NAME=$1
 	VERSION=$2
-	get "hlos-sysimages/sysupgrade" "name=$NAME&version=$VERSION" | jq .data.hlos_sysimage
+	_get "hlos-sysimages/sysupgrade" "name=$NAME&version=$VERSION" | jq .data.hlos_sysimage
 }
 
 dlsysimage()
