@@ -37,7 +37,7 @@ _get()
 
 ethers()
 {
-	_get "miners" | jq -r '.data.miners[] | select(.mac != "") | select(.mac != null) | .mac + " " + .ip'
+	_get "miners" $1 | jq -r '.data.miners[] | select(.mac != "") | select(.mac != null) | .mac + " " + .ip'
 }
 
 sshminer()
@@ -63,6 +63,11 @@ temp()
 miner_types()
 {
 	_get "miner-types" $1 | jq .data.miner_types[]
+}
+
+pdu_power()
+{
+	_patch "pdus/$1/power" "pdu_slot=$2&state=$3"
 }
 
 pdus()
