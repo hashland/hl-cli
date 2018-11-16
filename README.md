@@ -18,7 +18,7 @@ Create a file in your home directory containing the api key with `echo API_KEY=x
 ## Usage
 
 ```
-usage: hl dlsysimage|ethers|miners|miner_types|pdus|sensors|ssh_miners|sysimage|sysimages|temp [param=value]
+usage: hl dlsysimage|ethers|miners|miner_types|pdus|pdu_types|ping_miners|racks|sensors|ssh_miners|sysimage|sysimages|temp [param=value]
 ```
 
 ## Examples
@@ -66,6 +66,16 @@ $ hl miners "rack[]=171fd01d-93e8-11e8-bd87-02420a000145&rack[]=172645e3-93e8-11
 # run ssh command on all miners from the specified racks
 
 $ hl ssh_miners "rack[]=171fd01d-93e8-11e8-bd87-02420a000145&rack[]=172645e3-93e8-11e8-bd87-02420a000145" uptime
+
+```
+
+#### ping all miners
+```
+# ping all miners
+$ hl ping_miners
+
+# ping all miners for filter
+$ hl ping_miners "rack[]=171fd01d-93e8-11e8-bd87-02420a000145&rack[]=172645e3-93e8-11e8-bd87-02420a000145" 
 
 ```
 

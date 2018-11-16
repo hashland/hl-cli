@@ -54,6 +54,21 @@ ssh_miners()
 	done	
 }
 
+ping_miners()
+{
+	for ip in $(miners $1 | jq -r .ip); do
+		ping -c1 ${ip} >/dev/null
+		SUCCESS=$?
+		if [ $SUCCESS = 0 ]; then
+			echo $ip OK
+		else
+			echo $ip TIMEOUT
+		fi
+
+	done	
+
+}
+
 miners()
 {
 	_get "miners" $1 | jq .data.miners[] 
@@ -117,7 +132,7 @@ dlsysimage()
 }
 
 if [ -z $1 ]; then
-	echo usage: hl dlsysimage\|ethers\|miners\|miner_types\|pdus\|pdu_types\|racks\|sensors\|ssh_miners\|sysimage\|sysimages\|temp [param=value]
+	echo usage: hl dlsysimage\|ethers\|miners\|miner_types\|pdus\|pdu_types\|ping_miners\|racks\|sensors\|ssh_miners\|sysimage\|sysimages\|temp [param=value]
 	echo 
 	echo see https://github.com/hashland/hl-cli for examples
 	echo
