@@ -54,6 +54,11 @@ miner_types()
 	get "miner-types" $1 | jq .data.miner_types[]
 }
 
+pdus()
+{
+	get "pdus" $1 | jq .data.pdus[]
+}
+
 sysimages()
 {
 	get "hlos-sysimages" $1 | jq .data.hlos_sysimages[]
@@ -77,7 +82,7 @@ dlsysimage()
 }
 
 if [ -z $1 ]; then
-	echo usage: hl dlsysimage\|ethers\|miners\|miner_types\|sensors\|sysimage\|sysimages\|temp [param=value]
+	echo usage: hl dlsysimage\|ethers\|miners\|miner_types\|pdus\|sensors\|sysimage\|sysimages\|temp [param=value]
 	echo 
 	echo see https://github.com/hashland/hl-cli for examples
 	echo

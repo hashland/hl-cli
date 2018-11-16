@@ -18,7 +18,7 @@ Create a file in your home directory containing the api key with `echo API_KEY=x
 ## Usage
 
 ```
-usage: hl dlsysimage|ethers|miners|miner_types|sensors|sysimage|sysimages|temp [param=value]
+usage: hl dlsysimage|ethers|miners|miner_types|pdus|sensors|sysimage|sysimages|temp [param=value]
 ```
 
 ## Examples
@@ -126,6 +126,24 @@ Downloading hashland-18.11-beta4-sunxi-cortexa7-baikal-giant-b-squashfs-sdcard.i
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100 14.9M  100 14.9M    0     0  5504k      0  0:00:02  0:00:02 --:--:-- 5629k
+```
+
+### Power Distribution Units (PDUs)
+
+# List all pdus:
+```
+$ hl pdus
+
+{
+  "id": "167f227c-93e8-11e8-bd87-02420a000145",
+  "created_at": 1532948565,
+  "updated_at": 1542358804,
+  "name": "RPC3A7",
+  "pdu_type": {
+    "id": "0ab36207-93e7-11e8-bd87-02420a000145",
+    "name": "RPC-3A",
+    "vendor": "BayTech",
+...
 ```
 
 ### Sensors
