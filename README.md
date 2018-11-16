@@ -57,7 +57,7 @@ $ hl miners rack=17621f2a-93e8-11e8-bd87-02420a000145
 $ hl miners "rack=17621f2a-93e8-11e8-bd87-02420a000145&miner_type=1b45a531-93e7-11e8-bd87-02420a000145"
 
 # you can also specify an array in the filters, e.g. get all miners from rack a and b (note the quotes because of the &)
-$ hl miners "rack[]=171fd01d-93e8-11e8-bd87-02420a000145&rack[]=172645e3-93e8-11e8-bd87-02420a000145"
+$ hl miners "rack\[\]=171fd01d-93e8-11e8-bd87-02420a000145&rack\[\]=172645e3-93e8-11e8-bd87-02420a000145"
 ```
 
 #### run ssh command on a miner set
@@ -65,7 +65,7 @@ $ hl miners "rack[]=171fd01d-93e8-11e8-bd87-02420a000145&rack[]=172645e3-93e8-11
 ```
 # run ssh command on all miners from the specified racks
 
-$ hl ssh_miners "rack[]=171fd01d-93e8-11e8-bd87-02420a000145&rack[]=172645e3-93e8-11e8-bd87-02420a000145" uptime
+$ hl ssh_miners "rack\[\]=171fd01d-93e8-11e8-bd87-02420a000145&rack\[\]=172645e3-93e8-11e8-bd87-02420a000145" uptime
 
 ```
 
@@ -75,7 +75,7 @@ $ hl ssh_miners "rack[]=171fd01d-93e8-11e8-bd87-02420a000145&rack[]=172645e3-93e
 $ hl ping_miners
 
 # ping all miners for filter
-$ hl ping_miners "rack[]=171fd01d-93e8-11e8-bd87-02420a000145&rack[]=172645e3-93e8-11e8-bd87-02420a000145" 
+$ hl ping_miners "rack\[\]=171fd01d-93e8-11e8-bd87-02420a000145&rack\[\]=172645e3-93e8-11e8-bd87-02420a000145" 
 
 ```
 
