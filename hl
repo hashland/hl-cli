@@ -42,7 +42,16 @@ ethers()
 
 ssh_miners()
 {
-	echo $(miners $1 | jq -r .ip)
+
+	if [ -z $2 ]; then
+		echo "missing SSH command"
+		exit 1
+	fi
+
+	for ip in $(miners $1 | jq -r .ip); do
+		echo ${ip}:
+		ssh -oStrictHostKeyChecking=no root@$ip $2
+	done	
 }
 
 miners()
@@ -108,7 +117,7 @@ dlsysimage()
 }
 
 if [ -z $1 ]; then
-	echo usage: hl dlsysimage\|ethers\|miners\|miner_types\|pdus\|pdu_types\|racks\|sensors\|sysimage\|sysimages\|temp [param=value]
+	echo usage: hl dlsysimage\|ethers\|miners\|miner_types\|pdus\|pdu_types\|racks\|sensors\|ssh_miners\|sysimage\|sysimages\|temp [param=value]
 	echo 
 	echo see https://github.com/hashland/hl-cli for examples
 	echo
