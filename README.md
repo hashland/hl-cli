@@ -146,6 +146,24 @@ $ hl pdus
 ...
 ```
 
+### Power Distribution Unit Types
+
+# list all pdu types:
+```
+$ hl pdu_types
+
+{
+  "id": "0ab36207-93e7-11e8-bd87-02420a000145",
+  "name": "RPC-3A",
+  "vendor": "BayTech",
+  "slots": 8,
+  "ampere": 10
+}
+...
+
+```
+
+
 ### Sensors
 
 #### List all sensors and their values
