@@ -64,15 +64,15 @@ ping_miners()
 		rack_position=$(echo $line | cut -f 3 -d "|")
 		name=$(echo $line | cut -f 4 -d "|")
 
-		echo -n "$ip $rack_name:$rack_position $name ... "
+		desc="$ip $rack_name:$rack_position $name ... "
 
 		ping -c1 ${ip} >/dev/null
 		
 		SUCCESS=$?
 		if [ $SUCCESS = 0 ]; then
-			echo OK
+			echo $desc OK
 		else
-			echo TIMEOUT
+			echo $desc TIMEOUT
 		fi
 
 	done	
