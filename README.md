@@ -47,7 +47,19 @@ $ hl miners mac=02:42:0d:f2:39:6a
 
 $ hl miners name=XXX
 
+# All miners with type
 $ hl miners miner_type=1b45a531-93e7-11e8-bd87-02420a000145
+
+# All miners in rack
+$ hl miners rack=17621f2a-93e8-11e8-bd87-02420a000145
+
+# All miners with type in rack
+$ hl miners "rack=17621f2a-93e8-11e8-bd87-02420a000145&miner_type=1b45a531-93e7-11e8-bd87-02420a000145"
+
+# you can also specify an array in the filters, e.g. get all miners from rack a and b (note the quotes because of the &)
+$ hl miners "rack[]=171fd01d-93e8-11e8-bd87-02420a000145&rack[]=172645e3-93e8-11e8-bd87-02420a000145"
+
+
 ```
 
 #### Export miners to csv file
@@ -128,6 +140,20 @@ Downloading hashland-18.11-beta4-sunxi-cortexa7-baikal-giant-b-squashfs-sdcard.i
 100 14.9M  100 14.9M    0     0  5504k      0  0:00:02  0:00:02 --:--:-- 5629k
 ```
 
+### Racks
+
+# List all racks:
+```
+$ hl racks
+{
+  "id": "17621f2a-93e8-11e8-bd87-02420a000145",
+  "created_at": 1532948566,
+  "name": "DD.F"
+}
+...
+```
+
+
 ### Power Distribution Units (PDUs)
 
 # List all pdus:
@@ -162,7 +188,6 @@ $ hl pdu_types
 ...
 
 ```
-
 
 ### Sensors
 

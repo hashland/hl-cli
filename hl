@@ -40,9 +40,9 @@ ethers()
 	_get "miners" $1 | jq -r '.data.miners[] | select(.mac != "") | select(.mac != null) | .mac + " " + .ip'
 }
 
-sshminer()
+ssh_miners()
 {
-	echo $(miners $1 | jq -r .ip[0])
+	echo $(miners $1 | jq -r .ip)
 }
 
 miners()
@@ -92,6 +92,11 @@ sysimage()
 	_get "hlos-sysimages/sysupgrade" "name=$NAME&version=$VERSION" | jq .data.hlos_sysimage
 }
 
+racks()
+{
+	_get "racks" $1 | jq .data.racks[]
+}
+
 dlsysimage()
 {
 	URL=$(sysimage $1 $2 | jq -r .url)
@@ -103,7 +108,7 @@ dlsysimage()
 }
 
 if [ -z $1 ]; then
-	echo usage: hl dlsysimage\|ethers\|miners\|miner_types\|pdus\|pdu_types\|sensors\|sysimage\|sysimages\|temp [param=value]
+	echo usage: hl dlsysimage\|ethers\|miners\|miner_types\|pdus\|pdu_types\|racks\|sensors\|sysimage\|sysimages\|temp [param=value]
 	echo 
 	echo see https://github.com/hashland/hl-cli for examples
 	echo
