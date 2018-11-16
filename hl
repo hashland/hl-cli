@@ -20,6 +20,8 @@ _patch()
 
 _put()
 {
+	ROUTE=$1
+	PARAMS=$2
 	curl -s -H "Authorization: Bearer $API_KEY" -X PUT -d "$PARAMS" ${API_URL}/${ROUTE}
 }
 
@@ -75,6 +77,21 @@ ping_miners()
 
 	done	
 
+}
+
+set_miner()
+{
+	if [ -z $1 ]; then
+		echo Missing miner id
+		exit 1
+	fi
+
+	if [ -z $2 ]; then
+		echo Missing parameters
+		exit 1
+	fi
+
+	_put "miners/$1" $2 | jq .data.miner
 }
 
 miners()
@@ -140,7 +157,7 @@ dlsysimage()
 }
 
 if [ -z $1 ]; then
-	echo usage: hl dlsysimage\|ethers\|miners\|miner_types\|pdus\|pdu_types\|ping_miners\|racks\|sensors\|ssh_miners\|sysimage\|sysimages\|temp [param=value]
+	echo usage: hl dlsysimage\|ethers\|miners\|miner_types\|pdus\|pdu_types\|ping_miners\|racks\|sensors\|set_miner\|ssh_miners\|sysimage\|sysimages\|temp [param=value]
 	echo 
 	echo see https://github.com/hashland/hl-cli for examples
 	echo

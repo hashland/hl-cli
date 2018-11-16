@@ -18,7 +18,7 @@ Create a file in your home directory containing the api key with `echo API_KEY=x
 ## Usage
 
 ```
-usage: hl dlsysimage|ethers|miners|miner_types|pdus|pdu_types|ping_miners|racks|sensors|ssh_miners|sysimage|sysimages|temp [param=value]
+usage: hl dlsysimage|ethers|miners|miner_types|pdus|pdu_types|ping_miners|racks|sensors|set_miner|ssh_miners|sysimage|sysimages|temp [param=value]
 ```
 
 ## Examples
@@ -79,6 +79,11 @@ $ hl ping_miners "rack[]=171fd01d-93e8-11e8-bd87-02420a000145&rack[]=172645e3-93
 
 ```
 
+#### set parameters for a miner
+```
+# set mac address for a given miner
+$ hl set_miner 1770c711-93e8-11e8-bd87-02420a000145 mac=02:42:07:93:53:B7
+```
 
 #### Export miners to csv file
 ```
