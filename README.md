@@ -165,7 +165,7 @@ Downloading hashland-18.11-beta4-sunxi-cortexa7-baikal-giant-b-squashfs-sdcard.i
 
 ### Racks
 
-# List all racks:
+#### List all racks:
 ```
 $ hl racks
 {
@@ -179,7 +179,7 @@ $ hl racks
 
 ### Power Distribution Units (PDUs)
 
-# List all pdus:
+#### List all pdus:
 ```
 $ hl pdus
 
@@ -197,7 +197,7 @@ $ hl pdus
 
 ### Power Distribution Unit Types
 
-# list all pdu types:
+#### List all pdu types:
 ```
 $ hl pdu_types
 
