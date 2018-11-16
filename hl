@@ -52,7 +52,7 @@ ssh_miners()
 
 	for ip in $(miners $1 | jq -r .ip); do
 		echo ${ip}:
-		ssh -oStrictHostKeyChecking=no root@$ip $2
+		ssh -oStrictHostKeyChecking=no root@$ip $2 $3 $4 $5 $6
 	done	
 }
 
