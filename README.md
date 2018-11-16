@@ -69,7 +69,7 @@ $ hl ssh_miners "rack[]=171fd01d-93e8-11e8-bd87-02420a000145&rack[]=172645e3-93e
 
 ```
 
-#### ping all miners
+#### ping miners
 ```
 # ping all miners
 $ hl ping_miners
