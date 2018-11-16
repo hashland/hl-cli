@@ -56,13 +56,20 @@ ssh_miners()
 
 ping_miners()
 {
-	for ip in $(miners $1 | jq -r .ip); do
+	for line in $(miners $1 | jq -r '.ip + "|" + .name + "|" + .rack.name'); do
+		ip=$(echo $line | cut -f 1 -d "|")
+		name=$(echo $line | cut -f 2 -d "|")
+		rack_name=$(echo $line | cut -f 3 -d "|")
+
+		echo -n "$ip $name $rack_name "
+
 		ping -c1 ${ip} >/dev/null
+		
 		SUCCESS=$?
 		if [ $SUCCESS = 0 ]; then
-			echo $ip OK
+			echo OK
 		else
-			echo $ip TIMEOUT
+			echo TIMEOUT
 		fi
 
 	done	
