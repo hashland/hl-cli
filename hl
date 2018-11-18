@@ -1,6 +1,7 @@
 #!/bin/sh
 
 API_URL=https://api.hashland.cc
+TMPFILE=/tmp/hl.$$
 
 if [ -z "$HASHLAND_API_KEY" ]; then
 	[ -f $HOME/.hashland ] && . $HOME/.hashland
@@ -11,30 +12,34 @@ if [ -z "$HASHLAND_API_KEY" ]; then
 	fi	
 fi
 
-_patch()
+_curl()
 {
-	ROUTE=$1
-	PARAMS=$2
-	curl -s -H "Authorization: Bearer $HASHLAND_API_KEY" -X PATCH -d "$PARAMS" ${API_URL}/${ROUTE}
+	METHOD=$1
+	ROUTE=$2
+        DATA=$3
+
+        curl -s -H "Authorization: Bearer $HASHLAND_API_KEY" -X $METHOD -d "$DATA" ${API_URL}/${ROUTE} >$TMPFILE
+        MESSAGE=$(cat $TMPFILE | jq -r .message)
+
+        if [ ! -z "$MESSAGE" ] && [ "$MESSAGE" != null ]; then
+                >&2 echo $MESSAGE
+                exit 1
+        fi
+
+        cat $TMPFILE
+	rm $TMPFILE
 }
 
-_put()
-{
-	ROUTE=$1
-	PARAMS=$2
-	curl -s -H "Authorization: Bearer $HASHLAND_API_KEY" -X PUT -d "$PARAMS" ${API_URL}/${ROUTE}
+_patch() { 
+	_curl PATCH $2 $3 
 }
 
-_get()
-{
-	ROUTE=$1
-	PARAMS=$2
+_put() { 
+	_curl $2 $3 
+}
 
-	if [ ! -z "$PARAMS" ]; then
-		ROUTE=$ROUTE\?$PARAMS
-	fi
-
-	curl -s -H "Authorization: Bearer $HASHLAND_API_KEY" ${API_URL}/${ROUTE}
+_get() { 
+	_curl GET $1\?$2 "" 
 }
 
 ethers()
