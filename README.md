@@ -14,7 +14,7 @@
 * `jq` Install it with `apt install jq` on Debian/Ubuntu and `brew install jq` on OSX
 
 ## API Key
-Create a file in your home directory containing the api key with `echo API_KEY=xxxyourxxxapixxxkeyxxx >$HOME/.hashland && chmod 600 $HOME/.hashland`
+Create a file in your home directory containing the api key with `echo HASHLAND_API_KEY=xxxyourxxxapixxxkeyxxx >$HOME/.hashland && chmod 600 $HOME/.hashland`
 ## Usage
 
 ```

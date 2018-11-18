@@ -2,27 +2,27 @@
 
 API_URL=https://api.hashland.cc
 
-if [ ! -f $HOME/.hashland ]; then
-	echo Create a file in your home directory containing the api key with 
-	echo echo API_KEY=xxxyourxxxapixxxkeyxxx \>\$HOME/.hashland \&\& chmod 600 \$HOME/.hashland
+if [ -z "$HASHLAND_API_KEY" ]; then
+	[ -f $HOME/.hashland ] && . $HOME/.hashland
 
-	exit 1
+	if [ -z "$HASHLAND_API_KEY" ]; then
+		echo Missing HASHLAND_API_KEY, please specify it in your environment or create a .hashland file in your home directory 
+		exit 1
+	fi	
 fi
-
-. $HOME/.hashland
 
 _patch()
 {
 	ROUTE=$1
 	PARAMS=$2
-	curl -s -H "Authorization: Bearer $API_KEY" -X PATCH -d "$PARAMS" ${API_URL}/${ROUTE}
+	curl -s -H "Authorization: Bearer $HASHLAND_API_KEY" -X PATCH -d "$PARAMS" ${API_URL}/${ROUTE}
 }
 
 _put()
 {
 	ROUTE=$1
 	PARAMS=$2
-	curl -s -H "Authorization: Bearer $API_KEY" -X PUT -d "$PARAMS" ${API_URL}/${ROUTE}
+	curl -s -H "Authorization: Bearer $HASHLAND_API_KEY" -X PUT -d "$PARAMS" ${API_URL}/${ROUTE}
 }
 
 _get()
@@ -34,7 +34,7 @@ _get()
 		ROUTE=$ROUTE\?$PARAMS
 	fi
 
-	curl -s -H "Authorization: Bearer $API_KEY" ${API_URL}/${ROUTE}
+	curl -s -H "Authorization: Bearer $HASHLAND_API_KEY" ${API_URL}/${ROUTE}
 }
 
 ethers()
