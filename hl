@@ -3,7 +3,16 @@
 API_URL=https://api.hashland.cc
 TMPFILE=/tmp/hl.$$
 
-if [ -z "$HASHLAND_API_KEY" ]; then
+if [ -z "$1" ]; then
+	echo usage: hl dlsysimage\|ethers\|miners\|miner_types\|pdus\|pdu_types\|ping_miners\|racks\|sensors\|set_miner\|ssh_miners\|sysimage\|sysimages\|temp [param=value]
+	echo 
+	echo see https://github.com/hashland/hl-cli for examples
+	echo
+	exit 1
+fi
+
+
+if [ "$1" != "sysimage" ] && [ -z "$HASHLAND_API_KEY" ]; then
 	[ -f $HOME/.hashland ] && . $HOME/.hashland
 
 	if [ -z "$HASHLAND_API_KEY" ]; then
@@ -18,8 +27,14 @@ _curl()
 	ROUTE=$2
         DATA=$3
 
-        curl -s -H "Authorization: Bearer $HASHLAND_API_KEY" -X $METHOD -d "$DATA" ${API_URL}/${ROUTE} >$TMPFILE
-        MESSAGE=$(cat $TMPFILE | jq -r .message)
+	if [ -z "$HASHLAND_API_KEY" ]; then
+		curl -s -X $METHOD -d "$DATA" ${API_URL}/${ROUTE} >$TMPFILE
+	else
+		curl -s -H "Authorization: Bearer $HASHLAND_API_KEY" -X $METHOD -d "$DATA" ${API_URL}/${ROUTE} >$TMPFILE
+	fi
+        
+	
+	MESSAGE=$(cat $TMPFILE | jq -r .message)
 
         if [ ! -z "$MESSAGE" ] && [ "$MESSAGE" != null ]; then
                 >&2 echo $MESSAGE
@@ -162,13 +177,5 @@ dlsysimage()
 	fi
 }
 
-if [ -z $1 ]; then
-	echo usage: hl dlsysimage\|ethers\|miners\|miner_types\|pdus\|pdu_types\|ping_miners\|racks\|sensors\|set_miner\|ssh_miners\|sysimage\|sysimages\|temp [param=value]
-	echo 
-	echo see https://github.com/hashland/hl-cli for examples
-	echo
-	exit 1
-fi
-	
 $@
 
