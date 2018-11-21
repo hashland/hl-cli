@@ -46,7 +46,7 @@ _curl()
 }
 
 _patch() { 
-	_curl PATCH $2 $3 
+	_curl PATCH $1 $2 
 }
 
 _put() { 
@@ -55,6 +55,10 @@ _put() {
 
 _get() { 
 	_curl GET $1\?$2 "" 
+}
+
+_post() { 
+	_curl POST $1 $2
 }
 
 ethers()
@@ -153,6 +157,14 @@ pdu_types()
 sysimages()
 {
 	_get "hlos-sysimages" $1 | jq .data.hlos_sysimages[]
+}
+
+create_sysimage()
+{
+	NAME=$1
+	VERSION=$2
+	URL=$3
+	_post "hlos-sysimages" "name=$NAME&version=$VERSION&url=$URL"
 }
 
 sysimage()
