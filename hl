@@ -12,8 +12,12 @@ if [ -z "$1" ]; then
 fi
 
 
-if [ "$1" != "sysimage" ] && [ -z "$HASHLAND_API_KEY" ]; then
+if [ "$1" != "sysimage" -a -z "$HASHLAND_API_KEY" ]; then
 	[ -f $HOME/.hashland ] && . $HOME/.hashland
+	
+	if [ -z "$HASHLAND_API_KEY" -a -x /sbin/uci ]; then
+		HASHLAND_API_KEY=$(uci get hlos.@account[0].api_key)
+	fi
 
 	if [ -z "$HASHLAND_API_KEY" ]; then
 		echo Missing HASHLAND_API_KEY, please specify it in your environment or create a .hashland file in your home directory 
