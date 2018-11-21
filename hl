@@ -161,10 +161,7 @@ sysimages()
 
 create_sysimage()
 {
-	NAME=$1
-	VERSION=$2
-	URL=$3
-	_post "hlos-sysimages" "name=$NAME&version=$VERSION&url=$URL"
+	_post "hlos-sysimages" $1
 }
 
 sysimage()
